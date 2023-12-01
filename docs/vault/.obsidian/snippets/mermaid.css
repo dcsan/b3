@@ -1,0 +1,71 @@
+/* flowchart */
+
+.label>g>foreignObject {
+  color: red;
+  background-color: blue;
+}
+
+.node>g>g>foreignObject>div {
+  color: green;
+  stroke: blue;
+}
+
+.mermaid svg .cluster rect {
+  fill: pink !important;
+  stroke: yellow !important;
+}
+
+.mermaid svg .node rect {
+  color: white;
+  fill: rgb(59, 0, 137) !important;
+  stroke: white !important;
+}
+
+.classGroup rect,
+.classGroup line {
+  fill: #2f334d !important;
+  stroke: #444a73 !important;
+}
+
+path.relation {
+  stroke: #444a73 !important;
+}
+
+.classLabel rect {
+  fill: rgba(0, 0, 0, 0) !important;
+}
+
+.classLabel text {
+  fill: #c8d3f5 !important;
+}
+
+
+/* Make mindmap colors readable (Light mode) */
+.theme-light .mermaid {
+  --color-red: #ff7777;
+  --color-orange: #ffbb99;
+  --color-yellow: #ffeeaa;
+  --color-green: #bbffbb;
+  --color-cyan: #bbffee;
+  --color-blue: #aaccff;
+  --color-purple: #ddbbff;
+  --color-pink: #ffcccc;
+}
+
+/* Make mindmap colors readable (Dark mode) */
+.theme-dark .mermaid {
+  --color-red: #933;
+  --color-orange: #963;
+  --color-yellow: #993;
+  --color-green: #393;
+  --color-cyan: #399;
+  --color-blue: #339;
+  --color-purple: #639;
+  --color-pink: #966;
+}
+
+/* Override root text color in mermaid
+ * so that it's the same color as regular node text */
+.mermaid .section-root text {
+  fill: inherit !important;
+}
