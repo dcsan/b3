@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "481d4ddf8cddb313",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Graph Notes.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Using Mermaid with obsidian.md",
+                "file": "Graph Notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Using Mermaid with obsidian.md",
+                "file": "Graph Notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Using Mermaid with obsidian.md"
+                "file": "Graph Notes.md"
               }
             }
           }
@@ -146,10 +159,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "761cbbdc88da8178",
+  "active": "481d4ddf8cddb313",
   "lastOpenFiles": [
+    "Using Mermaid with obsidian.md",
+    "Graph Notes.md",
     "mermaid/mind-map.md",
-    "mermaid/FlowChart example.md",
-    "Using Mermaid with obsidian.md"
+    "mermaid/FlowChart example.md"
   ]
 }
