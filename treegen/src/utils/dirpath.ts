@@ -4,6 +4,8 @@ export function safeName(name: string) {
   name = name.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase()
   name = name.replace(/:|\.$/, "") // end trailing punctuation
   name = name.replace(/^•/, "") // start punctuation
+  name = name.replace(/^-/, "") // start punctuation
+  name = name.replace(/-$/, "") // start punctuation
   name = name.toLowerCase().trim()
 
   return name

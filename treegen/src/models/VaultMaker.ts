@@ -11,9 +11,9 @@ const clog = new Clog()
 
 const genOptions: GenerateOptions = {
   useCache: false,
-  depth: 1,
-  branchesPerNode: "one",
-  text: true,
+  depth: 2,
+  branchesPerNode: "three",
+  text: false,
 }
 
 class VaultMaker {
@@ -47,7 +47,8 @@ class VaultMaker {
     const indexName = `_${this.topicName}`
     const fpath = this.getPath(indexName, "md")
     const lines = items.map((item) => `- [[${item}]]`)
-    let doc = `## ${this.topicName} index\n`
+    let doc = `## ${this.topicName} \n\n`
+    doc += `index \n\n`
     doc += lines.join("\n")
     fs.writeFileSync(fpath, doc)
     clog.log("wrote index to", fpath)

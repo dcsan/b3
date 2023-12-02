@@ -37,7 +37,7 @@ const templates = {
 export type TemplateName = keyof typeof templates
 
 export type TemplateOpts = {
-  name?: TemplateName
+  templateName?: TemplateName
   fallback?: TemplateName
   format?: "list" | "short" | "medium" | "long"
   count?: "one" | "two" | "three" | "four" | "five" | "six" | "seven" | "eight"
@@ -45,7 +45,7 @@ export type TemplateOpts = {
 
 export function getTemplate(opts: TemplateOpts): PromptTemplate {
   let templateData =
-    templates[opts.name!] || (opts.fallback && templates[opts.fallback])
+    templates[opts.templateName!] || (opts.fallback && templates[opts.fallback])
 
   let format = opts.format || ("list" as FormatType)
   templateData += formats[format]

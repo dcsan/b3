@@ -21,7 +21,7 @@ export async function getDetail(
     topicName: params.topicName,
     nodeName: params.nodeName,
     promptTemplate: getTemplate({
-      name: params.nodeName as TemplateName,
+      templateName: params.nodeName as TemplateName,
       fallback: "detail",
       format: "long",
     }),

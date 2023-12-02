@@ -69,7 +69,7 @@ export class Topic {
 
   // write full graph to a yaml file
   async writeGraph(topicGraph: TopicGraph, format: "json" | "yaml" = "yaml") {
-    const fpath = this.getPath(format)
+    const fpath = this.getPath("yaml")
     const sorted = topicGraph.elements.sort((a, b) => {
       return a.data.type > b.data.type ? 1 : -1
     })

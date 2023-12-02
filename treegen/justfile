@@ -177,14 +177,15 @@ test:
 # tree topic='food':
 #   ts-node --esm src/cli.ts tree
 
+
 # use with node20
 vaultMake topic='food':
   node --loader ts-node/esm src/cli.ts vault {{topic}}
 
 vaultGen topic='effective-accelerationism':
-  rm -rf vault/{{topic}}
+  rm -rf ../b3vault/{{topic}}/*md
   node --loader ts-node/esm src/cli.ts vault {{topic}}
 
 vaultClean topic='food':
-  rm vault/{{topic}}/*.md
+  rm ../b3vault/{{topic}}/*.md
 

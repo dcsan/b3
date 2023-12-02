@@ -16,12 +16,12 @@ export async function getNodeChat(
   let template: PromptTemplate
   if (params.text) {
     template = getTemplate({
-      name: "freechat",
+      templateName: "freechat",
       format: "short",
     })
   } else {
     template = getTemplate({
-      name: params.nodeName as TemplateName,
+      templateName: params.nodeName as TemplateName,
       format: "short",
       fallback: "detail",
     })
