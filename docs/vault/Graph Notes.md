@@ -15,4 +15,6 @@ https://github.com/langchain-ai/langchain/blob/master/templates/neo4j-generation
 Obisidian Plugin Docs
 https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin
 
+Custom Frame
+https://github.com/Ellpeck/ObsidianCustomFrames
 

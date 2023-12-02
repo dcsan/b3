@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/chat HTTP/1.1
+content-type: application/json
+
+{
+    "data": {
+      "topicName": "blockchain",
+      "nodeName": "btc"
+    }
+}

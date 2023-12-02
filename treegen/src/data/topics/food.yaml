@@ -1,0 +1,97 @@
+name: food
+overview: >-
+  Food is any substance that is consumed to provide nutritional support for the
+  body. It is essential for our survival and plays a crucial role in maintaining
+  our health and well-being. Food can come in various forms such as fruits,
+  vegetables, grains, proteins, and fats, and each category provides specific
+  nutrients that are necessary for our bodies to function properly.
+
+
+  Fruits and vegetables are rich in vitamins, minerals, and antioxidants that
+  help boost our immune system and protect our bodies from diseases. They also
+  provide fiber, which aids in digestion and helps keep our gut healthy. Grains,
+  such as rice, bread, and pasta, are a major source of carbohydrates, which are
+  the body's main source of energy. They also contain important nutrients like B
+  vitamins and iron.
+
+
+  Proteins, found in foods such as meat, eggs, and beans, are essential for
+  building and repairing tissues in our bodies. They also play a vital role in
+  the production of enzymes and hormones. Fats, found in foods like oils, nuts,
+  and avocados, are a concentrated source of energy and provide essential fatty
+  acids that our bodies cannot produce on their own. They also aid in the
+  absorption of fat-soluble vitamins.
+
+
+  Food not only provides us with essential nutrients, but it also plays a
+elements:
+  - data:
+      source: cooking
+      target: utensils
+      type: link
+  - data:
+      source: cooking
+      target: recipe
+      type: link
+  - data:
+      source: cooking
+      target: ingredients
+      type: link
+  - data:
+      source: food
+      target: cooking
+      type: link
+  - data:
+      source: nutrition
+      target: wellness
+      type: link
+  - data:
+      source: nutrition
+      target: nutrients
+      type: link
+  - data:
+      source: nutrition
+      target: diet
+      type: link
+  - data:
+      source: food
+      target: nutrition
+      type: link
+  - data:
+      id: utensils
+      text: text
+      type: node
+  - data:
+      id: recipe
+      text: text
+      type: node
+  - data:
+      id: ingredients
+      text: text
+      type: node
+  - data:
+      id: cooking
+      text: text
+      type: node
+  - data:
+      id: wellness
+      text: text
+      type: node
+  - data:
+      id: nutrients
+      text: text
+      type: node
+  - data:
+      id: diet
+      text: text
+      type: node
+  - data:
+      id: nutrition
+      text: text
+      type: node
+  - data:
+      id: food
+      color: '#FF0088'
+      type: node
+      meta:
+        root: true

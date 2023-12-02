@@ -1,0 +1,122 @@
+name: ai
+overview: >-
+  Artificial intelligence (AI) is a branch of computer science that focuses on
+  creating intelligent machines that can perform tasks that typically require
+  human intelligence. These machines are programmed to think, learn, and adapt,
+  allowing them to perform complex tasks that would otherwise require human
+  intervention. AI is a rapidly growing field that has the potential to
+  revolutionize the way we live and work.
+
+
+  At its core, AI is based on the concept of creating intelligent agents that
+  can perceive their environment and take actions to maximize their chances of
+  success. This is achieved through the use of algorithms and data, which allow
+  machines to make decisions and learn from experience. One of the key
+  components of AI is machine learning, which involves training machines to
+  recognize patterns in data and make predictions based on that information.
+  This allows machines to improve their performance over time and adapt to new
+  situations.
+
+
+  There are several different types of AI, each with its own set of capabilities
+  and limitations. Some examples include symbolic AI, which uses logic and rules
+  to solve problems, and deep learning, which uses neural networks to process
+  large amounts of data and make decisions. AI has a wide range of applications,
+  from speech recognition and natural language processing to self-driving cars
+  and medical diagnosis. As technology advances, the potential uses for AI
+  continue to grow, making
+elements:
+  - data:
+      source: robotics
+      target: artificial intelligence
+      type: link
+  - data:
+      source: robotics
+      target: automation
+      type: link
+  - data:
+      source: ai
+      target: robotics
+      type: link
+  - data:
+      source: natural language processing
+      target: named entity recognition
+      type: link
+  - data:
+      source: natural language processing
+      target: sentiment analysis
+      type: link
+  - data:
+      source: natural language processing
+      target: tokenization
+      type: link
+  - data:
+      source: ai
+      target: natural language processing
+      type: link
+  - data:
+      source: machine learning
+      target: clustering
+      type: link
+  - data:
+      source: machine learning
+      target: regression
+      type: link
+  - data:
+      source: machine learning
+      target: classification
+      type: link
+  - data:
+      source: ai
+      target: machine learning
+      type: link
+  - data:
+      id: artificial intelligence
+      text: text
+      type: node
+  - data:
+      id: automation
+      text: text
+      type: node
+  - data:
+      id: robotics
+      text: text
+      type: node
+  - data:
+      id: named entity recognition
+      text: text
+      type: node
+  - data:
+      id: sentiment analysis
+      text: text
+      type: node
+  - data:
+      id: tokenization
+      text: text
+      type: node
+  - data:
+      id: natural language processing
+      text: text
+      type: node
+  - data:
+      id: clustering
+      text: text
+      type: node
+  - data:
+      id: regression
+      text: text
+      type: node
+  - data:
+      id: classification
+      text: text
+      type: node
+  - data:
+      id: machine learning
+      text: text
+      type: node
+  - data:
+      id: ai
+      color: '#FF0088'
+      type: node
+      meta:
+        root: true

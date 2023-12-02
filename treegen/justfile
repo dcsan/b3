@@ -1,0 +1,186 @@
+imageName:="kbxt-image"
+
+
+default:
+  @just --list
+
+dev:
+  pnpm run dev
+
+
+## docker
+
+server:
+  node --loader ts-node/esm src/server.ts
+
+build:
+  rm -rf dist
+  npm run build
+
+clean:
+  rm -rf dist
+
+npm-shit:
+  npm install --legacy-peer-deps
+
+# -------------------- docker --------------------
+
+docker-login:
+  docker run -it --rm {{imageName}} bash
+
+docker-run-local:
+  docker run --publish 8080:8080 {{imageName}}
+
+docker-stop-all:
+  docker ps -aq | xargs docker stop | xargs docker rm
+
+docker-kill-all:
+  docker ps -aq | xargs docker kill
+
+docker-kill-redo: docker-kill-all docker-build docker-run-local
+
+docker-redo: docker-build docker-run-local
+
+docker-build: build
+  docker build --tag {{imageName}} .
+
+
+docker-build-gcp: build
+  docker build --tag {{imageName}} .
+  gcloud builds submit --pack image={{imageName}}
+  pack build --publish
+
+# -------------------- GCP --------------------
+
+# switch between logged in accounts
+gcp-set-account:
+  gcloud config set account DC@rik.ai
+
+# confirm active project eg dev/staging etc
+gcp-check:
+  @echo "project is: "
+  @gcloud config get-value project
+  @gcloud auth list
+
+gcp-login:
+	gcloud auth login --account dc@rik.ai
+
+gcp-set-project:
+  gcloud config set project kbxt-404306
+
+gcp-set-quota:
+  gcloud auth application-default set-quota-project kbxt-404306
+
+gcp-lro:
+  curl -X GET \
+    -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    "https://us-documentai.googleapis.com/v1/projects/kbxt-404306/locations/us/operations/8386482938878576900"
+
+gcp-public-bucket:
+  gcloud storage buckets add-iam-policy-binding gs://kbxt-404306_cloudbuild --member=allUsers --role=roles/storage.objectViewer
+
+# -------------------- deploy --------------------
+
+deploy-server: build
+  bin/deploy-image.sh
+
+
+switch-env env=".env.dev":
+  @echo "switching to env: {{env}}"
+  rm .env
+  ln -s {{env}} .env
+  ls -la .env
+
+# -------------------- CLI --------------------
+
+# node --loader ts-node/esm src/cli.ts
+
+trim fname='src/data/ignored/audio/JRS-EP-188-Robert-Tercek.mp3':
+  ffmpeg -i {{fname}} -ss 600 -t 5 -c copy src/data/ignored/tiny.mp3
+
+chunk cname='jrs202':
+  ts-node --esm src/cli.ts chunk {{cname}}
+
+chunk-load cname='jrs202':
+  ts-node --esm src/cli.ts chunk {{cname}}
+  ts-node --esm src/cli.ts loadStory {{cname}}
+
+transcribe fname='ignored/sample.mp3':
+  time ts-node --esm src/cli.ts transcribe {{fname}}
+
+clean-chunked cname='jrs202':
+  time ts-node --esm src/cli.ts cleanChunked {{cname}}
+
+transStart cname='jrs210':
+  time ts-node --esm src/cli.ts transStart {{cname}}
+
+transFetch cname='jrs210':
+  time ts-node --esm src/cli.ts transFetch {{cname}}
+
+transFetchWait cname='jrs210':
+  time ts-node --esm src/cli.ts transFetchWait {{cname}}
+
+transFetchAll:
+  time ts-node --esm src/cli.ts transFetch
+
+transList:
+  time ts-node --esm src/cli.ts transList
+
+process cname='jrs202':
+  time ts-node --esm src/cli.ts transStart {{cname}}
+  time ts-node --esm src/cli.ts transFetchWait {{cname}}
+  time ts-node --esm src/cli.ts chunk {{cname}}
+  time ts-node --esm src/cli.ts loadStory {{cname}}
+
+addMeta cname='jrs202':
+  time ts-node --esm src/cli.ts addMeta {{cname}}
+
+addDuration cname='jrs202':
+  time ts-node --esm src/cli.ts addDuration {{cname}}
+
+load-story epname='jre139':
+  time ts-node --esm src/cli.ts loadStory {{epname}}
+
+genImages cname='jrs202':
+  time ts-node --esm src/cli.ts genImages {{cname}}
+
+redoOne cname='jrs202':
+  time ts-node --esm src/cli.ts redoAll {{cname}}
+
+redoAll:
+  time ts-node --esm src/cli.ts redoAll
+
+dump cname='jrs202':
+  time ts-node --esm src/cli.ts dump {{cname}}
+
+dumpAll:
+  time ts-node --esm src/cli.ts dumpAll
+
+# make JPGs
+convertImages:
+  mogrify -quality 80 -format jpg src/renders/*/*png
+
+
+### -------------------- prisma --------------------
+db-generate:
+  npx prisma generate
+
+db-push: db-generate
+  npx prisma db push
+
+### -------------------- testing --------------------
+test:
+  npx vitest
+
+### ------------------- brain3 -------------------
+
+# tree topic='food':
+#   ts-node --esm src/cli.ts tree
+
+# use with node20
+vaultMake topic='food':
+  node --loader ts-node/esm src/cli.ts vault {{topic}}
+
+vaultClean topic='food':
+  rm vault/{{topic}}/*.md
+
