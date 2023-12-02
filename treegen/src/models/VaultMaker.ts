@@ -13,7 +13,7 @@ const genOptions: GenerateOptions = {
   useCache: false,
   depth: 2,
   branchesPerNode: "three",
-  text: false,
+  text: true,
 }
 
 class VaultMaker {
