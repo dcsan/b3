@@ -181,6 +181,10 @@ test:
 vaultMake topic='food':
   node --loader ts-node/esm src/cli.ts vault {{topic}}
 
+vaultGen topic='effective-accelerationism':
+  rm -rf vault/{{topic}}
+  node --loader ts-node/esm src/cli.ts vault {{topic}}
+
 vaultClean topic='food':
   rm vault/{{topic}}/*.md
 

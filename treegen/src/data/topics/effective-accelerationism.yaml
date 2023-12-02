@@ -1,0 +1,121 @@
+name: effective-accelerationism
+overview: >-
+  Effective accelerationism is a political theory that seeks to accelerate the
+  collapse of capitalism and usher in a new era of radical change. It is based
+  on the idea that capitalism is inherently self-destructive and that by
+  speeding up its destructive tendencies, we can hasten its demise and bring
+  about a more just and egalitarian society.
+
+
+  The origins of effective accelerationism can be traced back to the works of
+  philosophers and theorists such as Friedrich Nietzsche, Karl Marx, and Gilles
+  Deleuze. Friedrich Nietzsche believed that the collapse of existing systems
+  and values was necessary for the emergence of a new and better society. Karl
+  Marx also argued that capitalism contained within itself the seeds of its own
+  destruction, and that it was the task of the working class to accelerate this
+  process through revolution. Gilles Deleuze expanded on these ideas and
+  proposed the concept of "deterritorialization," which refers to the
+  dismantling of oppressive structures and institutions.
+
+
+  Effective accelerationism rejects the idea of gradual reform within the
+  existing system and instead advocates for a radical and rapid transformation.
+  One of the key strategies of effective accelerationism is to embrace and
+  amplify the negative aspects of capitalism, such as exploitation, inequality,
+  and environmental destruction. By pushing these tendencies to their extreme,
+  it is believed that the system will eventually collapse under its
+elements:
+  - data:
+      source: modernity
+      target: globalization
+      type: link
+  - data:
+      source: modernity
+      target: industrialization
+      type: link
+  - data:
+      source: effective-accelerationism
+      target: modernity
+      type: link
+  - data:
+      source: progress
+      target: improvement
+      type: link
+  - data:
+      source: progress
+      target: advancement
+      type: link
+  - data:
+      source: progress
+      target: development
+      type: link
+  - data:
+      source: effective-accelerationism
+      target: progress
+      type: link
+  - data:
+      source: capitalism
+      target: profit motive
+      type: link
+  - data:
+      source: capitalism
+      target: private ownership
+      type: link
+  - data:
+      source: capitalism
+      target: free market
+      type: link
+  - data:
+      source: effective-accelerationism
+      target: capitalism
+      type: link
+  - data:
+      id: globalization
+      text: text
+      type: node
+  - data:
+      id: industrialization
+      text: text
+      type: node
+  - data:
+      id: modernity
+      text: text
+      type: node
+  - data:
+      id: improvement
+      text: text
+      type: node
+  - data:
+      id: advancement
+      text: text
+      type: node
+  - data:
+      id: development
+      text: text
+      type: node
+  - data:
+      id: progress
+      text: text
+      type: node
+  - data:
+      id: profit motive
+      text: text
+      type: node
+  - data:
+      id: private ownership
+      text: text
+      type: node
+  - data:
+      id: free market
+      text: text
+      type: node
+  - data:
+      id: capitalism
+      text: text
+      type: node
+  - data:
+      id: effective-accelerationism
+      color: '#FF0088'
+      type: node
+      meta:
+        root: true

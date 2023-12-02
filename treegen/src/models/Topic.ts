@@ -13,28 +13,33 @@ export class Topic {
   // skipCache = AppConfig.USE_TOPIC_CACHE === "yes"
   useCache = true
   topicData?: TopicGraph
+  topicName: string
+  safeName: string
   options?: GenerateOptions
 
-  constructor(opts?: GenerateOptions) {
+  constructor(topicName: string, opts?: GenerateOptions) {
     this.options = opts
+    this.topicName = topicName
+    this.safeName = safeName(topicName)
     this.useCache = opts?.useCache || false
     clog.log("useCache", this.useCache)
   }
 
-  async genGraph(topicName: string) {
+  async genGraph() {
+    const topicName = this.topicName
     if (this.useCache) {
       const cached = await this.loadTopicFile(topicName)
       if (cached) return cached
     }
     const builder = new TopicBuilder(topicName, this.options)
-    this.topicData = await builder.buildTopic(topicName)
+    this.topicData = await builder.buildTopic()
     return this.topicData
   }
 
-  getPath(name: string, format?: "json" | "yaml"): string {
+  getPath(format?: "json" | "yaml"): string {
     const fpath = path.join(
       AppConfig.rootPath,
-      `./data/topics/${name}.${format}`
+      `../../b3vault/${this.safeName}/${this.safeName}.${format}`
     )
     mkdirSync(dirname(fpath), { recursive: true })
     return fpath
@@ -43,8 +48,7 @@ export class Topic {
   // load from filesystem
   async loadTopicFile(topicName: string) {
     if (!this.useCache) return
-    const name = safeName(topicName)
-    const fpath = this.getPath(name, "yaml")
+    const fpath = this.getPath("yaml")
     if (!fs.existsSync(fpath)) {
       clog.warn("no existing topic file, making new", {
         topicName,
@@ -63,10 +67,9 @@ export class Topic {
     return topicData
   }
 
-  async writeTopic(topicGraph: TopicGraph, format?: "json" | "yaml") {
-    const name = safeName(topicGraph.name)
-    const fpath = this.getPath(name, format)
-
+  // write full graph to a yaml file
+  async writeGraph(topicGraph: TopicGraph, format: "json" | "yaml" = "yaml") {
+    const fpath = this.getPath(format)
     const sorted = topicGraph.elements.sort((a, b) => {
       return a.data.type > b.data.type ? 1 : -1
     })

@@ -1,0 +1,3 @@
+[submodule "b3vault"]
+	path = b3vault
+	url = git@github.com:dcsan/b3vault.git

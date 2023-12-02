@@ -1,5 +1,5 @@
 import path, { dirname } from "path"
-import { TopicGraph } from "../appTypes.js"
+import { GenerateOptions, TopicGraph } from "../appTypes.js"
 import { Clog } from "../utils/Clog.js"
 import { Topic } from "./Topic.js"
 import { AppConfig } from "../config/AppConfig.js"
@@ -8,6 +8,13 @@ import { ElementDefinition } from "cytoscape"
 import fs from "fs"
 
 const clog = new Clog()
+
+const genOptions: GenerateOptions = {
+  useCache: false,
+  depth: 1,
+  branchesPerNode: "one",
+  text: true,
+}
 
 class VaultMaker {
   topicName: string
@@ -19,8 +26,8 @@ class VaultMaker {
 
   async make() {
     clog.log("make", this.topicName)
-    const topic = new Topic({ useCache: false })
-    this.graph = await topic.genGraph(this.topicName)
+    const topic = new Topic(this.topicName, genOptions)
+    this.graph = await topic.genGraph()
     // clog.log("topicData", graph)
     await this.writeVault(this.graph)
   }
@@ -30,18 +37,20 @@ class VaultMaker {
     await this.makeIndex(graph)
     for (const elem of graph.elements) {
       // clog.log("elem", elem)
-      await this.writeDoc(elem)
+      await this.writeMdDocs(elem)
     }
   }
 
   async makeIndex(graph: TopicGraph) {
     const nodes = await this.getNodes(graph)
     const items = nodes.map((node) => node.data.id)
-    const fpath = this.getPath("index", "md")
+    const indexName = `_${this.topicName}`
+    const fpath = this.getPath(indexName, "md")
     const lines = items.map((item) => `- [[${item}]]`)
-    let doc = `## nodes\n`
+    let doc = `## ${this.topicName} index\n`
     doc += lines.join("\n")
     fs.writeFileSync(fpath, doc)
+    clog.log("wrote index to", fpath)
   }
 
   async getNodes(graph: TopicGraph) {
@@ -64,22 +73,23 @@ class VaultMaker {
   getPath(name: string, format?: "md" | "json" | "yaml"): string {
     const fpath = path.join(
       AppConfig.rootPath,
-      `../vault/${this.topicName}/${name}.${format}`
+      `../../b3vault/${this.topicName}/${name}.${format}`
     )
     mkdirSync(dirname(fpath), { recursive: true })
     return fpath
   }
 
-  async writeDoc(elem: ElementDefinition) {
+  async writeMdDocs(elem: ElementDefinition) {
     const nodeId = elem.data.id
     if (!nodeId) return
     const fpath = this.getPath(nodeId, "md")
-    let doc = await `## ${nodeId}`
+    let doc = await `## ${nodeId}\n${elem.data.text}\n\n`
     const links = await this.getLinks(elem)
     links?.forEach((link) => {
       doc += `\n- [[${link.data.target}]]`
     })
     fs.writeFileSync(fpath, doc, "utf8")
+    clog.log("wrote doc to", fpath)
   }
 }
 

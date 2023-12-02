@@ -28,8 +28,18 @@ export type NodeChatRequest = {
 // generator options
 export type GenerateOptions = {
   useCache?: boolean
-  addContent?: boolean
+  text?: boolean
   depth?: number
+
+  branchesPerNode?:
+    | "one"
+    | "two"
+    | "three"
+    | "four"
+    | "five"
+    | "six"
+    | "seven"
+    | "eight"
 }
 
 export type TopicGraph = {
