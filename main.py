@@ -25,9 +25,20 @@ topics = query_engine.query(f"Please recommend some topics for me to learn in an
 # Print the response
 # print(personality)
 # print(opinion)
-print(topics)
+# Format the topics string into a list
+# Extract the response
+response_str = topics.response
 
-breakpoint()
+
+# Split the response into a list of topics
+topics_list = response_str.replace('- ', '').split('\n')
+
+# Remove leading numbers and period from each item
+topics_list = [topic.split('. ', 1)[-1] for topic in topics_list]
+
+# Write the topics list to ./docs/vault/topics.yaml in the format "topics: topics_list"
+with open('./docs/vault/topics.yaml', 'w') as file:
+    yaml.safe_dump({"topics": topics_list}, file)
 
 # Load the YAML file
 with open('autorepos/AutoGPT/ai_settings.yaml', 'r') as file:
