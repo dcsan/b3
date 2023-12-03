@@ -1,12 +1,20 @@
 export function safeName(name: string) {
   if (!name) return "no-name"
   // remove non alpha
-  name = name.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase()
+
+  name = name.toLowerCase().trim()
+  name = name.replace(/^[0-9]+\. /, "") // leading digits
+  name = name.toLowerCase().trim()
+  name = name.replace(/[^a-zA-Z0-9]/g, "-") // non alpha to dash
+
+  name = name.replace(/:|\.$/, "") // end trailing punctuation
+  name = name.replace(/^•/, "") // start bullet
   name = name.replace(/:|\.$/, "") // end trailing punctuation
   name = name.replace(/^•/, "") // start punctuation
+  name = name.trim()
   name = name.replace(/^-/, "") // start punctuation
   name = name.replace(/-$/, "") // start punctuation
-  name = name.toLowerCase().trim()
+  name = name.trim()
 
   return name
 }

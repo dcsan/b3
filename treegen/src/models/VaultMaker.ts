@@ -6,15 +6,9 @@ import { AppConfig } from "../config/AppConfig.js"
 import { mkdirSync } from "fs"
 import { ElementDefinition } from "cytoscape"
 import fs from "fs"
+import { genOptions } from "../config/genConfig.js"
 
 const clog = new Clog()
-
-const genOptions: GenerateOptions = {
-  useCache: false,
-  depth: 2,
-  branchesPerNode: "three",
-  text: true,
-}
 
 class VaultMaker {
   topicName: string
@@ -52,6 +46,10 @@ class VaultMaker {
     doc += lines.join("\n")
     fs.writeFileSync(fpath, doc)
     clog.log("wrote index to", fpath)
+  }
+
+  async makeIframe(graph: TopicGraph) {
+    const fpath = this.getPath("iframe", "html")
   }
 
   async getNodes(graph: TopicGraph) {

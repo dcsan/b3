@@ -15,6 +15,22 @@ test("should parse", async () => {
     "Legal domain",
   ])
 })
+
+test("safeName", async () => {
+  // const input = `1-Automation 2.  arborist, other-thing, 1. Afforestation`
+  const input = "1. Fermentation\n2. Curing\n3. Aging\n4. Milk\n5. Cultures"
+
+  const items = splitList(input)
+
+  expect(items).toStrictEqual([
+    "Fermentation",
+    "Curing",
+    "Aging",
+    "Milk",
+    "Cultures",
+  ])
+})
+
 test("should parse longwords", async () => {
   const input =
     '1. "complex" 2. "rarest" 3. "separated" 4. "following" 5. "comma"'

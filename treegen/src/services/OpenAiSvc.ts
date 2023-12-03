@@ -3,10 +3,11 @@ import { AppConfig } from "../config/AppConfig.js"
 import { PromptTemplate } from "langchain/prompts"
 import { Clog } from "../utils/Clog.js"
 import { cleanText } from "../utils/TextUtils.js"
+import { safeName } from "../utils/dirpath.js"
 
 const clog = new Clog()
 
-type OpenAiQueryOptions = {
+export type OpenAiQueryOptions = {
   topicName: string
   nodeName?: string
   promptTemplate: PromptTemplate
@@ -21,18 +22,17 @@ const model = new OpenAI({
   // model: "davinci",
 })
 
-function splitItems(output: string): string[] {
-  let lines = output.split("\n")
-  lines = lines.map((line) => line.replace(/^[0-9]+\. /, ""))
-  lines = lines.map((line) => line.replace(/:|\.$/, "")) // end trailing punctuation
-  lines = lines.map((line) => line.replace(/^•/, "")) // start punctuation
-  lines = lines.map((line) => line.toLowerCase().trim())
+function splitItems(input: string): string[] {
+  clog.log("split in=>", input)
+  let lines = input.split("\n")
+  lines = lines.map(safeName)
   lines = lines.filter((line) => line.length > 0)
+  clog.log("split out=>", lines)
   return lines
 }
 
 function logQuery(query: OpenAiQueryOptions, result: any) {
-  console.log("listQuery", {
+  console.log("logQuery", {
     topicName: query.topicName,
     nodeName: query.nodeName,
     result,
