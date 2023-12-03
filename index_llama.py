@@ -18,3 +18,5 @@ index = VectorStoreIndex.from_documents(
 )
 
 index.storage_context.persist("personal_index")
+
+

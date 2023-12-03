@@ -5,3 +5,4 @@ regex
 pyyaml
 instructor
 llama-index
+flask

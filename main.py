@@ -4,6 +4,7 @@ from llama_index import VectorStoreIndex, SimpleDirectoryReader, StorageContext
 from llama_index.vector_stores import SimpleVectorStore
 from llama_index import load_index_from_storage
 
+import time 
 
 # Rebuild storage context
 storage_context = StorageContext.from_defaults(persist_dir="personal_index")
@@ -14,17 +15,13 @@ new_index = load_index_from_storage(storage_context)
 # Get the default query engine
 query_engine = new_index.as_query_engine()
 
-topic = 'electronics'
-
 # Query the index
-# personality = query_engine.query("What are their personality traits?")
-# opinion = query_engine.query(f"What relates this person to {topic}?")
-topics = query_engine.query(f"Please recommend some topics for me to learn in an ordered bullet list")
-
+personality = query_engine.query("Tell me about myself in 1 sentence")
+topics = query_engine.query(f"Please recommend some topics for me to learn in an ordered bullet list. Make the first bullet 'effective accelerationalism'")
 
 # Print the response
 # print(personality)
-# print(opinion)
+print(topics)
 # Format the topics string into a list
 # Extract the response
 response_str = topics.response
@@ -40,6 +37,11 @@ topics_list = [topic.split('. ', 1)[-1] for topic in topics_list]
 with open('./docs/vault/topics.yaml', 'w') as file:
     yaml.safe_dump({"topics": topics_list}, file)
 
+
+topic = 'effective accelerationalism'
+opinion = query_engine.query(f"What relates this person to {topic} in 1 sentence?")
+
+
 # Load the YAML file
 with open('autorepos/AutoGPT/ai_settings.yaml', 'r') as file:
     data = yaml.safe_load(file)
@@ -52,15 +54,12 @@ api_budget = data['api_budget']
 ai_purpose = """an AI assistant specialized in doing research on a topic and building a markdown file .md. Given the personality of the user: """
 context = f""" {personality} {opinion}"""
 
-
-
 # Function to write back to the YAML file
 def write_to_yaml(data, filename='autorepos/AutoGPT/ai_settings.yaml'):
     with open(filename, 'w') as file:
         yaml.safe_dump(data, file)
 
 # Update the data
-ai_role = ai_purpose + context
 data['ai_role'] = ai_purpose + context
 
 data['ai_goals'] = [
@@ -72,5 +71,6 @@ data['ai_goals'] = [
 # Write back to the YAML file
 write_to_yaml(data)
 
-subprocess.call(["bash", "run_continuous.sh", '-y'], cwd="/home/lightsong/Central/Projects/hackathons/b3vault/autorepos/AutoGPT")
+print('starting AI crawl...')
+subprocess.call(["bash", "run_continuous.sh", '-y'], cwd="/home/lightsong/Central/Projects/hackathons/b3/autorepos/AutoGPT")
 
