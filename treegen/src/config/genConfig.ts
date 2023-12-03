@@ -2,9 +2,9 @@ import { GenerateOptions } from "../appTypes"
 
 export const genOptions: GenerateOptions = {
   useCache: false,
-  depth: 1,
+  depth: 2,
   // breadth: "three", // should be in english for the prompt
-  breadth: "one",
+  breadth: "two",
   tags: true,
   text: true,
 }

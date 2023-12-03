@@ -3,7 +3,7 @@ import { GenerateOptions, TopicGraph } from "../appTypes.js"
 import { Clog } from "../utils/Clog.js"
 import { Topic } from "./Topic.js"
 import { AppConfig } from "../config/AppConfig.js"
-import { mkdirSync } from "fs"
+import { mkdirSync, readFileSync } from "fs"
 import { ElementDefinition } from "cytoscape"
 import fs from "fs"
 import { genOptions } from "../config/genConfig.js"
@@ -46,11 +46,54 @@ class VaultMaker {
     }
     // clog.log("topicData", this.graph)
     await this.makeMindmap(this.graph)
+    await this.addFlows()
+  }
+
+  async addFlows() {
+    const topic = new Topic(this.topicName, genOptions)
+    const graph = this.graph || (await topic.loadTopicFile())
+    const nodes = graph?.elements.filter((elem) => elem.data.type === "node")
+    if (!nodes) return
+    for (let node of nodes.slice(0, 10)) {
+      clog.log("addFlow", node.data.id)
+      await this.addFlow(node)
+    }
+  }
+
+  async addFlow(nodeName: ElementDefinition) {
+    const name = nodeName.data.id!
+    const fp = this.getPath(name, "md")
+    let doc = readFileSync(fp, "utf8")
+    const links = this.graph?.elements.filter(
+      (elem) => elem.data.type === "link"
+    )
+
+    const linksIn = links?.filter((elem) => elem.data.target === name)
+    const linksOut = links?.filter((elem) => elem.data.source === name)
+
+    let linesIn = linksIn?.map((link) => `${link.data.source} --> ${name}`)
+    let linesOut = linksOut?.map((link) => `${name} --> ${link.data.target}`)
+    let text = linesIn?.join("\n    ") || ""
+    text += linesOut?.join("\n    ")
+    const flow = this.replaceFlow(text!)
+    doc += flow
+    fs.writeFileSync(fp, doc)
+  }
+
+  replaceFlow(text: string): string {
+    const tpl = `
+\`\`\`mermaid
+flowchart LR
+    {{text}}
+\`\`\`
+`
+    const res = tpl.replace(/{{text}}/g, text)
+    return res
   }
 
   async writeVault(graph: TopicGraph) {
     clog.log("makeVault", graph)
-    await this.makeIndex(graph)
+    // await this.makeIndex(graph)
     for (const elem of graph.elements) {
       // clog.log("elem", elem)
       await this.writeMdDocs(elem)

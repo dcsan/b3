@@ -3,7 +3,7 @@ import { AppConfig } from "../config/AppConfig.js"
 import { PromptTemplate } from "langchain/prompts"
 import { Clog } from "../utils/Clog.js"
 import { cleanText } from "../utils/TextUtils.js"
-import { safeName } from "../utils/dirpath.js"
+import { safeName } from "../utils/safeName.js"
 
 const clog = new Clog()
 

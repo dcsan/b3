@@ -4,7 +4,7 @@ import { TemplateName, getTemplate } from "../topics/getTemplate.js"
 import { ElementDefinition } from "cytoscape"
 import { Topic } from "./Topic.js"
 import { Clog } from "../utils/Clog.js"
-import { safeName } from "../utils/dirpath.js"
+import { safeName } from "../utils/safeName.js"
 
 const clog = new Clog()
 
