@@ -179,16 +179,17 @@ test:
 
 
 # use with node20
-vaultMake topic='food':
-  node --loader ts-node/esm src/cli.ts vault {{topic}}
+# vaultMake topic='food':
+#   node --loader ts-node/esm src/cli.ts vault {{topic}}
 
-vaultGen topic='effective-accelerationism':
-  rm -rf ../b3vault/{{topic}}/*md
-  node --loader ts-node/esm src/cli.ts vault {{topic}}
 
 vaultClean topic='food':
   rm ../b3vault/{{topic}}/*.md
 
-vaultEnhance topic='food':
+vaultGen topic='effective_accelerationism':
+  rm -rf ../b3vault/{{topic}}/*md
+  node --loader ts-node/esm src/cli.ts vault {{topic}}
+
+vaultEnhance topic='effective_accelerationism':
   node --loader ts-node/esm src/cli.ts vaultEnhance {{topic}}
 

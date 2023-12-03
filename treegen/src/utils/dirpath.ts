@@ -13,7 +13,11 @@ export function safeName(name: string) {
   name = name.replace(/^•/, "") // start punctuation
   name = name.trim()
   name = name.replace(/^-/, "") // start punctuation
+  name = name.replace(/^_/, "") // start punctuation
+  name = name.replace("--", "") // start punctuation
+  name = name.replace("-", "") // start punctuation
   name = name.replace(/-$/, "") // start punctuation
+  name = name.replace(/_$/, "") // start punctuation
   name = name.trim()
 
   return name

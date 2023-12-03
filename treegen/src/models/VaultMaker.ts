@@ -20,7 +20,10 @@ class VaultMaker {
   }
 
   async make() {
-    clog.log("make", this.topicName)
+    clog.log("make", {
+      topicName: this.topicName,
+      genOptions,
+    })
     const topic = new Topic(this.topicName, genOptions)
     this.graph = await topic.genGraph()
     // this.graph = await topic.loadTopicFile()
@@ -36,12 +39,12 @@ class VaultMaker {
   async enhance() {
     clog.log("make", this.topicName)
     const topic = new Topic(this.topicName, genOptions)
-    this.graph = await topic.loadTopicFile()
+    this.graph = this.graph || (await topic.loadTopicFile())
     if (!this.graph) {
       clog.warn("no graph found for", this.topicName)
       return
     }
-    clog.log("topicData", this.graph)
+    // clog.log("topicData", this.graph)
     await this.makeMindmap(this.graph)
   }
 
