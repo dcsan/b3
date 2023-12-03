@@ -54,7 +54,8 @@ class VaultMaker {
     const graph = this.graph || (await topic.loadTopicFile())
     const nodes = graph?.elements.filter((elem) => elem.data.type === "node")
     if (!nodes) return
-    for (let node of nodes.slice(0, 10)) {
+    // nodes = nodes.slice(0, 10)
+    for (let node of nodes) {
       clog.log("addFlow", node.data.id)
       await this.addFlow(node)
     }
@@ -73,8 +74,8 @@ class VaultMaker {
 
     let linesIn = linksIn?.map((link) => `${link.data.source} --> ${name}`)
     let linesOut = linksOut?.map((link) => `${name} --> ${link.data.target}`)
-    let text = linesIn?.join("\n    ") || ""
-    text += linesOut?.join("\n    ")
+    let text = linesIn?.join("\n    ") || "\n"
+    text += "\n" + linesOut?.join("\n    ")
     const flow = this.replaceFlow(text!)
     doc += flow
     fs.writeFileSync(fp, doc)
