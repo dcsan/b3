@@ -42,7 +42,7 @@ class VaultMaker {
       return
     }
     clog.log("topicData", this.graph)
-    await this.makeMermaid(this.graph)
+    await this.makeMindmap(this.graph)
   }
 
   async writeVault(graph: TopicGraph) {
@@ -71,10 +71,10 @@ class VaultMaker {
     const fpath = this.getPath("iframe", "html")
   }
 
-  async makeMermaid(_graph: TopicGraph) {
+  async makeMindmap(_graph: TopicGraph) {
     const mmap = makeMindmap(_graph)
     const doc = `## ${this.topicName} \n\n ${mmap}`
-    const mermaidPath = this.getPath("mermaid", "md")
+    const mermaidPath = this.getPath("mindmap", "md")
     fs.writeFileSync(mermaidPath, doc, "utf8")
     return doc
   }
