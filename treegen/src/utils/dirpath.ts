@@ -5,7 +5,7 @@ export function safeName(name: string) {
   name = name.toLowerCase().trim()
   name = name.replace(/^[0-9]+\. /, "") // leading digits
   name = name.toLowerCase().trim()
-  name = name.replace(/[^a-zA-Z0-9]/g, "-") // non alpha to dash
+  name = name.replace(/[^a-zA-Z0-9]/g, "_") // non alpha to dash
 
   name = name.replace(/:|\.$/, "") // end trailing punctuation
   name = name.replace(/^•/, "") // start bullet

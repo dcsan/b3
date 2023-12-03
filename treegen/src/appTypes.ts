@@ -30,8 +30,9 @@ export type GenerateOptions = {
   useCache?: boolean
   text?: boolean
   depth?: number
+  tags?: boolean
 
-  branchesPerNode?:
+  breadth?:
     | "one"
     | "two"
     | "three"

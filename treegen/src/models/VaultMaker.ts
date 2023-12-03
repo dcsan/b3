@@ -7,6 +7,7 @@ import { mkdirSync } from "fs"
 import { ElementDefinition } from "cytoscape"
 import fs from "fs"
 import { genOptions } from "../config/genConfig.js"
+import { makeMindmap } from "./makeMermaid.js"
 
 const clog = new Clog()
 
@@ -22,8 +23,26 @@ class VaultMaker {
     clog.log("make", this.topicName)
     const topic = new Topic(this.topicName, genOptions)
     this.graph = await topic.genGraph()
-    // clog.log("topicData", graph)
+    // this.graph = await topic.loadTopicFile()
+    if (!this.graph) {
+      clog.warn("no graph found for", this.topicName)
+      return
+    }
+    clog.log("topicData", this.graph)
+    await this.enhance()
     await this.writeVault(this.graph)
+  }
+
+  async enhance() {
+    clog.log("make", this.topicName)
+    const topic = new Topic(this.topicName, genOptions)
+    this.graph = await topic.loadTopicFile()
+    if (!this.graph) {
+      clog.warn("no graph found for", this.topicName)
+      return
+    }
+    clog.log("topicData", this.graph)
+    await this.makeMermaid(this.graph)
   }
 
   async writeVault(graph: TopicGraph) {
@@ -48,8 +67,16 @@ class VaultMaker {
     clog.log("wrote index to", fpath)
   }
 
-  async makeIframe(graph: TopicGraph) {
+  async makeIframe(_graph: TopicGraph) {
     const fpath = this.getPath("iframe", "html")
+  }
+
+  async makeMermaid(_graph: TopicGraph) {
+    const mmap = makeMindmap(_graph)
+    const doc = `## ${this.topicName} \n\n ${mmap}`
+    const mermaidPath = this.getPath("mermaid", "md")
+    fs.writeFileSync(mermaidPath, doc, "utf8")
+    return doc
   }
 
   async getNodes(graph: TopicGraph) {
@@ -69,7 +96,7 @@ class VaultMaker {
     return links
   }
 
-  getPath(name: string, format?: "md" | "json" | "yaml"): string {
+  getPath(name: string, format?: "md" | "json" | "yaml" | "html"): string {
     const fpath = path.join(
       AppConfig.rootPath,
       `../../b3vault/${this.topicName}/${name}.${format}`

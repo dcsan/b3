@@ -28,7 +28,7 @@ export class Topic {
   async genGraph() {
     const topicName = this.topicName
     if (this.useCache) {
-      const cached = await this.loadTopicFile(topicName)
+      const cached = await this.loadTopicFile()
       if (cached) return cached
     }
     const builder = new TopicBuilder(topicName, this.options)
@@ -46,13 +46,13 @@ export class Topic {
   }
 
   // load from filesystem
-  async loadTopicFile(topicName: string) {
-    if (!this.useCache) return
+  async loadTopicFile() {
     const fpath = this.getPath("yaml")
+    const topicName = this.topicName
     if (!fs.existsSync(fpath)) {
-      clog.warn("no existing topic file, making new", {
+      clog.warn("no existing topic file", {
         topicName,
-        fname: fpath,
+        fpath,
       })
       return
     }

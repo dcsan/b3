@@ -93,6 +93,11 @@ async function runCli() {
       await vaultMaker.make()
       break
 
+    case "vaultEnhance":
+      const vm2 = new VaultMaker(cname)
+      await vm2.enhance()
+      break
+
     default:
       console.log(`Unknown command: ${cmd}`)
       break

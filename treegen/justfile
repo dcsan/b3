@@ -189,3 +189,6 @@ vaultGen topic='effective-accelerationism':
 vaultClean topic='food':
   rm ../b3vault/{{topic}}/*.md
 
+vaultEnhance topic='food':
+  node --loader ts-node/esm src/cli.ts vaultEnhance {{topic}}
+

@@ -41,6 +41,7 @@ export type TemplateOpts = {
   fallback?: TemplateName
   format?: "list" | "short" | "medium" | "long"
   count?: "one" | "two" | "three" | "four" | "five" | "six" | "seven" | "eight"
+  tags?: boolean
 }
 
 export function getTemplate(opts: TemplateOpts): PromptTemplate {

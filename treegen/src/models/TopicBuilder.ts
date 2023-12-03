@@ -86,7 +86,7 @@ class TopicBuilder {
     const subTopicNames = await listQuery({
       topicName: this.baseTopicName,
       nodeName: template,
-      count: this.options?.branchesPerNode || "one",
+      count: this.options?.breadth || "one",
       promptTemplate: getTemplate({
         templateName: template as TemplateName,
         fallback: "expand",
@@ -135,6 +135,19 @@ class TopicBuilder {
           }),
         })
       : ""
+
+    // if (this.options?.tags) {
+    //   const tags = await listQuery({
+    //     nodeName,
+    //     topicName,
+    //     count: "three",
+    //     promptTemplate: getTemplate({
+    //       templateName: "tags",
+    //       fallback: "tags",
+    //       format: "list",
+    //     }),
+    //   })
+    // }
 
     return {
       data: {
