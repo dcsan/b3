@@ -32,8 +32,8 @@ class VaultMaker {
       return
     }
     clog.log("topicData", this.graph)
-    await this.enhance()
     await this.writeVault(this.graph)
+    await this.enhance()
   }
 
   async enhance() {
